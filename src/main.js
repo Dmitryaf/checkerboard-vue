@@ -2,11 +2,11 @@ import { createApp } from 'vue';
 
 import App from '@/components/App.vue';
 
-import vuetify from './plugins/vuetify';
 import { loadFonts } from './plugins/webfontloader';
 
 import './styles/index.scss';
+import 'swiper/swiper-bundle.css';
 
 loadFonts();
 
-createApp(App).use(vuetify).mount('#app');
+createApp(App).use().mount('#app');
