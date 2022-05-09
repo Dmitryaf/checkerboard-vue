@@ -1,9 +1,5 @@
 <template>
-  <v-app>
-    <v-main>
-      <Board />
-    </v-main>
-  </v-app>
+  <Board />
 </template>
 
 <script>
