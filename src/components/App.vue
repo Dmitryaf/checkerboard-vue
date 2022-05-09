@@ -1,13 +1,17 @@
 <template>
-  <House></House>
+  <v-app>
+    <v-main>
+      <Board />
+    </v-main>
+  </v-app>
 </template>
 
 <script>
-import House from './House/House.vue';
+import Board from './Board.vue';
 export default {
   name: 'App',
   components: {
-    House,
+    Board,
   },
 };
 </script>
