@@ -1,5 +1,12 @@
+@import 'swiper/swiper.scss';
+
 @import '_fonts.scss';
 @import '_variables.scss';
+
+
+* {
+  box-sizing: border-box;
+}
 
 ol,
 ul {
@@ -17,4 +24,18 @@ body {
   font-family: 'Roboto', sans-serif;
   height: 100%;
   min-height: 100%;
+}
+
+
+::-webkit-scrollbar {
+  position: absolute;
+  left: 0;
+  width: 8px;
+  height: 6px;
+}
+
+
+::-webkit-scrollbar-thumb {
+  background: $orange;
+  border-radius: 4px;
 }
