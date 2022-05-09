@@ -1,15 +1,22 @@
 <template>
-  <v-container>
-    <v-row>
-      <House
-        v-for="house of boardData.houses"
-        :houseData="housesData[house]"
-        :key="house"
-      />
-    </v-row>
-  </v-container>
+  <div class="board">
+    <swiper
+      :slides-per-view="1"
+      :space-between="50"
+      :navigation="true"
+      :modules="modules"
+    >
+      <swiper-slide v-for="house of boardData.houses" :key="house">
+        <House :housesData="housesData[house]" />
+      </swiper-slide>
+      <navigation></navigation>
+    </swiper>
+  </div>
 </template>
 <script>
+import { Swiper, SwiperSlide } from 'swiper/vue/swiper-vue';
+import { Navigation } from 'swiper';
+
 import BoardData from '../static/data.json';
 
 import House from './House.vue';
@@ -17,12 +24,19 @@ import House from './House.vue';
 export default {
   components: {
     House,
+    Swiper,
+    SwiperSlide,
   },
   data() {
     return {
       boardData: BoardData,
       housesData: {},
       flatsData: BoardData.flats,
+    };
+  },
+  setup() {
+    return {
+      modules: [Navigation],
     };
   },
 
@@ -50,4 +64,9 @@ export default {
   },
 };
 </script>
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+.board {
+  display: flex;
+  padding: 20px;
+}
+</style>
