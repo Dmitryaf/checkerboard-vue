@@ -1,12 +1,14 @@
 <template>
-  <div class="flats" :style="getRows">
+  <div
+    class="flats"
+    :style="getRows(section.floors.length, $options.FLAT_ROWS_SIZE)"
+  >
     <div
       class="flats__row"
       v-for="floors of section.floors"
       :key="floors.floor"
-      :style="getCols"
+      :style="getCols(section.flats_max, $options.FLAT_COLS_SIZE)"
     >
-      <div v-if="isFirstSection" class="flats__floor">{{ floors.floor }}</div>
       <div
         v-for="flat of floors.flats"
         :key="flat.id"
@@ -19,11 +21,14 @@
 </template>
 
 <script>
+import useGridTable from '@/composables/useGridTable';
+
 const FLAT_STATUSES = {
   keysIssued: 'Выданы ключи',
   booking: 'Бронь',
   contract: 'Договор',
 };
+
 export default {
   inject: ['flatsData'],
   props: {
@@ -31,28 +36,18 @@ export default {
     sectionIndex: { type: Number, require: true },
     houseFloors: { type: Number, require: true },
   },
+  FLAT_ROWS_SIZE: '40px',
+  FLAT_COLS_SIZE: '1fr',
 
-  computed: {
-    isFirstSection() {
-      return this.sectionIndex === 0;
-    },
-
-    getRows() {
-      return {
-        'grid-template-rows': `repeat(${this.section.floors.length}, 40px)`,
-      };
-    },
-
-    getCols() {
-      return {
-        'grid-template-columns': `repeat(${this.section.flats_max + 1}, 1fr)`,
-      };
-    },
+  setup() {
+    const { getRows, getCols } = useGridTable();
+    return { getRows, getCols };
   },
 
   methods: {
     getFlatClasses(flat) {
       const classes = [];
+
       if (!flat.plan_type) {
         classes.push('flats__item--empty-plan');
       }
@@ -73,9 +68,7 @@ export default {
     },
   },
 
-  created() {
-    console.log('flats', this.flatsData);
-  },
+  created() {},
 };
 </script>
 
@@ -83,6 +76,7 @@ export default {
 @import '../styles/variables';
 .flats {
   display: grid;
+  align-self: self-end;
 
   &__row {
     display: grid;
@@ -91,16 +85,12 @@ export default {
     gap: 10px;
   }
 
-  &__item,
-  &__floor {
+  &__item {
     display: flex;
     justify-content: center;
     align-items: center;
     width: $flat-size;
     height: $flat-size;
-  }
-
-  &__item {
     font-weight: 500;
     color: $white;
     background: $dark-grey;
@@ -110,10 +100,6 @@ export default {
 
     &:hover {
       opacity: 0.7;
-    }
-
-    &--empty-plan {
-      background: $light-grey;
     }
 
     &--issued {
@@ -127,10 +113,10 @@ export default {
     &--contract {
       background: $green;
     }
-  }
 
-  &__floor {
-    color: $grey;
+    &--empty-plan {
+      background: $light-grey;
+    }
   }
 }
 </style>
