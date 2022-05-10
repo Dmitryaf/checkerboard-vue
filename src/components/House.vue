@@ -77,7 +77,7 @@ export default {
   display: flex;
   align-items: flex-end;
   height: 100%;
-  padding: 60px 30px;
+  padding: 60px 70px;
   overflow-x: auto;
   overflow-y: hidden;
   will-change: scroll-position;
