@@ -2,11 +2,8 @@ import { createApp } from 'vue';
 
 import App from '@/components/App.vue';
 
-import { loadFonts } from './plugins/webfontloader';
-
-import './styles/index.scss';
 import 'swiper/swiper-bundle.css';
 
-loadFonts();
+import './styles/index.scss';
 
 createApp(App).use().mount('#app');
