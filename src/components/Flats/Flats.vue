@@ -13,7 +13,13 @@
         v-for="flat of floors.flats"
         :key="flat.id"
         :class="`flats__item ${getFlatClasses(flatsData[flat.id])}`"
+        @click="openDetailModal(flatsData[flat.id])"
       >
+        <FlatsDetails
+          v-if="flatsData[flat.id]"
+          :flatData="flatsData[flat.id]"
+          :options="detailOptions"
+        />
         {{ flatsData[flat.id].plan_type }}
       </div>
     </div>
@@ -21,6 +27,8 @@
 </template>
 
 <script>
+import FlatsDetails from '@/components/Flats/FlatsDetails';
+
 import useGridTable from '@/composables/useGridTable';
 
 const FLAT_STATUSES = {
@@ -30,14 +38,33 @@ const FLAT_STATUSES = {
 };
 
 export default {
-  inject: ['flatsData'],
+  inject: ['flatsData', 'modalDetail'],
+  components: {
+    FlatsDetails,
+  },
   props: {
     section: { type: Object, require: true },
     sectionIndex: { type: Number, require: true },
-    houseFloors: { type: Number, require: true },
   },
   FLAT_ROWS_SIZE: '40px',
   FLAT_COLS_SIZE: '1fr',
+
+  data() {
+    return {
+      detailOptions: {
+        cost: true,
+        type: false,
+        floor: false,
+        number: false,
+        square: true,
+        plan_type: false,
+        subsidy: false,
+        marginal: false,
+        renovation: false,
+        installment: false,
+      },
+    };
+  },
 
   setup() {
     const { getRows, getCols } = useGridTable();
@@ -66,6 +93,12 @@ export default {
 
       return classes.join(' ');
     },
+
+    openDetailModal(flatData) {
+      console.log(this.modalDetail);
+      this.modalDetail.data = flatData;
+      this.modalDetail.isOpen = true;
+    },
   },
 
   created() {},
@@ -73,7 +106,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '../styles/variables';
+@import '@/styles/variables';
 .flats {
   display: grid;
   align-self: self-end;
@@ -86,6 +119,7 @@ export default {
   }
 
   &__item {
+    position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -99,7 +133,9 @@ export default {
     transition: 0.3s;
 
     &:hover {
-      opacity: 0.7;
+      & .flats__details {
+        display: block;
+      }
     }
 
     &--issued {
