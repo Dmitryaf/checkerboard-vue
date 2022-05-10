@@ -1,8 +1,14 @@
 <template>
   <div class="board">
+    <Transition>
+      <ModalDetail v-if="modalDetail.isOpen" />
+    </Transition>
+
     <swiper
+      class="swiper-custom"
       :slides-per-view="1"
       :space-between="50"
+      :pagination="{ clickable: true }"
       :navigation="true"
       :modules="modules"
       :allowTouchMove="false"
@@ -16,15 +22,17 @@
 </template>
 <script>
 import { Swiper, SwiperSlide } from 'swiper/vue/swiper-vue';
-import { Navigation } from 'swiper';
+import { Navigation, Pagination } from 'swiper';
 
-import BoardData from '../static/data.json';
+import BoardData from '@/static/data.json';
 
-import House from './House.vue';
+import House from '@/components/House.vue';
+import ModalDetail from '@/components/ModalDetail.vue';
 
 export default {
   components: {
     House,
+    ModalDetail,
     Swiper,
     SwiperSlide,
   },
@@ -33,17 +41,19 @@ export default {
       boardData: BoardData,
       housesData: {},
       flatsData: BoardData.flats,
+      modalDetail: { isOpen: false, data: null },
     };
   },
   setup() {
     return {
-      modules: [Navigation],
+      modules: [Navigation, Pagination],
     };
   },
 
   provide() {
     return {
       flatsData: this.flatsData,
+      modalDetail: this.modalDetail,
     };
   },
 
