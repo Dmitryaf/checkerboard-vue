@@ -5,6 +5,7 @@
       :space-between="50"
       :navigation="true"
       :modules="modules"
+      :allowTouchMove="false"
     >
       <swiper-slide v-for="house of boardData.houses" :key="house">
         <House :housesData="housesData[house]" />
