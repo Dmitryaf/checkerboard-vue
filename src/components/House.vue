@@ -25,7 +25,7 @@
 </template>
 
 <script>
-import Flats from './Flats.vue';
+import Flats from '@/components/Flats/Flats.vue';
 
 import useGridTable from '@/composables/useGridTable';
 
@@ -72,12 +72,12 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '../styles/variables';
+@import '@/styles/variables';
 .house {
   display: flex;
   align-items: flex-end;
   height: 100%;
-  padding-bottom: 20px;
+  padding: 60px 30px;
   overflow-x: auto;
   overflow-y: hidden;
   will-change: scroll-position;
@@ -132,6 +132,7 @@ export default {
     }
 
     &-item {
+      color: $grey;
       display: flex;
       justify-content: center;
       align-items: center;
