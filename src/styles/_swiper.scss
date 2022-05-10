@@ -1,0 +1,31 @@
+.swiper-custom {
+  & .swiper-button-prev,
+  .swiper-button-next {
+    color: $white;
+    background: $green;
+    border-radius: 5px;
+    padding: 25px;
+
+    &:after,
+    &:before {
+      font-size: 35px;
+    }
+  }
+
+  & .swiper-pagination-fraction,
+  .swiper-pagination-custom,
+  .swiper-horizontal > .swiper-pagination-bullets,
+  .swiper-pagination-bullets.swiper-pagination-horizontal {
+    bottom: 30px;
+  }
+
+  & .swiper-pagination-bullet {
+    width: 10px;
+    height: 10px;
+    border-radius: 0;
+  }
+
+  & .swiper-pagination-bullet-active {
+    background: $green;
+  }
+}
