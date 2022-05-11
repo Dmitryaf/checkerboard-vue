@@ -18,7 +18,6 @@
         <FlatsDetails
           v-if="flatsData[flat.id]"
           :flatData="flatsData[flat.id]"
-          :options="detailOptions"
         />
         {{ flatsData[flat.id].plan_type }}
       </div>
@@ -49,23 +48,6 @@ export default {
   FLAT_ROWS_SIZE: '40px',
   FLAT_COLS_SIZE: '1fr',
 
-  data() {
-    return {
-      detailOptions: {
-        cost: true,
-        type: false,
-        floor: false,
-        number: false,
-        square: true,
-        plan_type: false,
-        subsidy: false,
-        marginal: false,
-        renovation: false,
-        installment: false,
-      },
-    };
-  },
-
   setup() {
     const { getRows, getCols } = useGridTable();
     return { getRows, getCols };
@@ -77,6 +59,15 @@ export default {
 
       if (!flat.plan_type) {
         classes.push('flats__item--empty-plan');
+      }
+
+      if (
+        flat.renovation ||
+        flat.subsidy ||
+        flat.marginal ||
+        flat.installment
+      ) {
+        classes.push('flats__item--with-option');
       }
 
       switch (flat.status) {
@@ -95,7 +86,6 @@ export default {
     },
 
     openDetailModal(flatData) {
-      console.log(this.modalDetail);
       this.modalDetail.data = flatData;
       this.modalDetail.isOpen = true;
     },
@@ -110,6 +100,7 @@ export default {
 .flats {
   display: grid;
   align-self: self-end;
+  margin-bottom: 15px;
 
   &__row {
     display: grid;
@@ -152,6 +143,21 @@ export default {
 
     &--empty-plan {
       background: $light-grey;
+    }
+
+    &--with-option {
+      &:after {
+        content: '';
+        display: block;
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 0;
+        height: 0;
+        border-top: 8px solid red;
+        border-right: 8px solid transparent;
+        transform: rotate(90deg);
+      }
     }
   }
 }
