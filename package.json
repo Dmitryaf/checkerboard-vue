@@ -10,7 +10,6 @@
   "dependencies": {
     "@mdi/font": "5.9.55",
     "core-js": "^3.6.5",
-    "roboto-fontface": "*",
     "swiper": "^8.1.4",
     "vue": "^3.0.0"
   },
