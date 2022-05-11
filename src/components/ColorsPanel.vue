@@ -1,32 +1,27 @@
 <template>
   <div class="colors-panel">
-    <div class="colors-panel__item">
+    <div
+      v-for="item of $options.PANEL_ITEM"
+      :key="item.title"
+      class="colors-panel__item"
+    >
       <div
-        class="colors-panel__item-color colors-panel__item-color--sales"
+        :class="`colors-panel__item-color colors-panel__item-color--${item.styleClass}`"
       ></div>
-      <span class="colors-panel__item-title">Выданы ключи</span>
-    </div>
-    <div class="colors-panel__item">
-      <div
-        class="colors-panel__item-color colors-panel__item-color--free"
-      ></div>
-      <span class="colors-panel__item-title">Свободно</span>
-    </div>
-    <div class="colors-panel__item">
-      <div
-        class="colors-panel__item-color colors-panel__item-color--booking"
-      ></div>
-      <span class="colors-panel__item-title">Бронь</span>
-    </div>
-    <div class="colors-panel__item">
-      <div
-        class="colors-panel__item-color colors-panel__item-color--additional"
-      ></div>
-      <span class="colors-panel__item-title">Присутствуют доп. опции</span>
+      <span class="colors-panel__item-title">{{ item.title }}</span>
     </div>
   </div>
 </template>
-
+<script>
+export default {
+  PANEL_ITEM: [
+    { title: 'Выданы ключи', styleClass: 'sales' },
+    { title: 'Свободно', styleClass: 'free' },
+    { title: 'Бронь', styleClass: 'booking' },
+    { title: 'Присутствуют доп. опции', styleClass: 'additional' },
+  ],
+};
+</script>
 <style lang="scss" scoped>
 @import '@/styles/variables';
 .colors-panel {
@@ -81,7 +76,7 @@
           right: 0;
           width: 0;
           height: 0;
-          border-top: 8px solid red;
+          border-top: 8px solid $red;
           border-right: 8px solid transparent;
           transform: rotate(90deg);
         }
