@@ -55,9 +55,6 @@ export default {
       return floors.reverse();
     },
   },
-  created() {
-    // console.log('housesData', this.housesData);
-  },
 
   methods: {
     isFirstSection(index) {
@@ -77,7 +74,7 @@ export default {
   display: flex;
   align-items: flex-end;
   height: 100%;
-  padding: 60px 70px;
+  padding: 70px;
   overflow-x: auto;
   overflow-y: hidden;
   will-change: scroll-position;
@@ -88,10 +85,6 @@ export default {
     width: 8px;
     height: 6px;
     background: $grey;
-  }
-
-  &::-webkit-scrollbar-track {
-    cursor: pointer;
   }
 
   &::-webkit-scrollbar-thumb {
