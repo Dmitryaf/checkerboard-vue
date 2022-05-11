@@ -3,7 +3,7 @@
     <Transition>
       <ModalDetail v-if="modalDetail.isOpen" />
     </Transition>
-
+    <ColorsPanel />
     <swiper
       class="swiper-custom"
       :slides-per-view="1"
@@ -12,6 +12,7 @@
       :navigation="true"
       :modules="modules"
       :allowTouchMove="false"
+      :autoHeight="true"
     >
       <swiper-slide v-for="house of boardData.houses" :key="house">
         <House :housesData="housesData[house]" />
@@ -28,11 +29,13 @@ import BoardData from '@/static/data.json';
 
 import House from '@/components/House.vue';
 import ModalDetail from '@/components/ModalDetail.vue';
+import ColorsPanel from '@/components/ColorsPanel.vue';
 
 export default {
   components: {
     House,
     ModalDetail,
+    ColorsPanel,
     Swiper,
     SwiperSlide,
   },
@@ -78,6 +81,9 @@ export default {
 <style scoped lang="scss">
 .board {
   display: flex;
+  flex-direction: column;
+  margin: 0 auto;
   padding: 20px;
+  max-width: 1400px;
 }
 </style>
