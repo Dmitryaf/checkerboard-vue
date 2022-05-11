@@ -12,7 +12,7 @@
         <li
           v-for="option of optionsForDisplay"
           :key="option"
-          class="modal-detail__item"
+          :class="`modal-detail__item ${getItemClass(option)}`"
         >
           <span class="modal-detail__item-title">{{
             `${detailFields[option]}:`
@@ -27,6 +27,7 @@
 </template>
 
 <script>
+const OPTIONS = ['subsidy', 'marginal', 'renovation', 'installment'];
 import useDetails from '@/composables/useDetails';
 
 export default {
@@ -84,6 +85,10 @@ export default {
     closeModal() {
       this.modalDetail.isOpen = false;
       this.modalDetail.data = null;
+    },
+
+    getItemClass(option) {
+      return OPTIONS.includes(option) ? 'modal-detail__item-additional' : '';
     },
   },
 };
@@ -149,6 +154,7 @@ export default {
   }
 
   &__item {
+    position: relative;
     font-size: $font-size-16;
     padding-bottom: 5px;
     margin-bottom: 15px;
@@ -164,6 +170,21 @@ export default {
 
     &-value {
       margin-left: 10px;
+    }
+
+    &-additional {
+      &:before {
+        content: '';
+        display: block;
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 0;
+        height: 0;
+        border-top: 8px solid $red;
+        border-right: 8px solid transparent;
+        transform: rotate(90deg);
+      }
     }
   }
 }
