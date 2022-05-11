@@ -1,56 +1,47 @@
 <template>
-  <div class="flats__details">
-    <div
-      v-for="item of optionsForDisplay"
-      :key="item"
+  <ul class="flats__details">
+    <li
+      v-for="option of optionsForDisplay"
+      :key="option"
       class="flats__details-item"
     >
-      {{ `${$options.FLAT_FIELDS[item]}: ${convertValue(flatData[item])}` }}
-    </div>
-  </div>
+      {{ `${detailFields[option]}: ${convertValue(flatData[option])}` }}
+    </li>
+  </ul>
 </template>
 
 <script>
+import useDetails from '@/composables/useDetails';
+
 export default {
   props: { flatData: { type: Object }, options: { type: Object } },
-  FLAT_FIELDS: {
-    cost: 'Цена (₽)',
-    type: 'Тип объекта',
-    floor: 'Этаж',
-    number: 'Номер квартиры',
-    square: 'Площадь объекта (кв.м)',
-    plan_type: 'Тип планировки',
-    subsidy: 'Cубсидированная',
-    marginal: 'Маржинальная',
-    renovation: 'C ремонтом',
-    installment: 'C рассрочкой',
-  },
-  data() {
+
+  setup() {
+    const {
+      detailFields,
+      detailOptions,
+      optionsForDisplay,
+      getTrueOptions,
+      convertValue,
+    } = useDetails();
     return {
-      optionsForDisplay: [],
+      detailFields,
+      detailOptions,
+      optionsForDisplay,
+      getTrueOptions,
+      convertValue,
     };
   },
 
   created() {
-    this.getTrueOptions(this.options);
+    this.setOptionsForDisplay();
   },
 
   methods: {
-    getTrueOptions(options) {
-      if (Object.keys(options).length) {
-        for (const option in options) {
-          if (options[option]) {
-            this.optionsForDisplay.push(option);
-          }
-        }
-      }
-    },
-
-    convertValue(value) {
-      if (typeof value === 'boolean') {
-        return 'Да';
-      }
-      return value;
+    setOptionsForDisplay() {
+      this.detailOptions.cost = true;
+      this.detailOptions.square = true;
+      this.getTrueOptions(this.detailOptions);
     },
   },
 };
