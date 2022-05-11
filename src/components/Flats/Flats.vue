@@ -154,7 +154,7 @@ export default {
         right: 0;
         width: 0;
         height: 0;
-        border-top: 8px solid red;
+        border-top: 8px solid $red;
         border-right: 8px solid transparent;
         transform: rotate(90deg);
       }
