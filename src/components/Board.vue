@@ -1,8 +1,6 @@
 <template>
   <div class="board">
-    <Transition>
-      <ModalDetail v-if="modalDetail.isOpen" />
-    </Transition>
+    <ModalDetail v-if="modalDetail.isOpen" />
     <ColorsPanel />
     <swiper
       class="swiper-custom"

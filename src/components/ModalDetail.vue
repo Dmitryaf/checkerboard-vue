@@ -1,5 +1,6 @@
 <template>
-  <div class="modal-detail__wrap">
+  <div class="modal-detail">
+    <div class="modal-detail__overlay" @click="closeModal"></div>
     <div class="modal-detail__content">
       <button @click="closeModal" class="btn modal-detail__btn" type="button">
         Закрыть
@@ -97,14 +98,14 @@ export default {
 <style lang="scss" scoped>
 @import '@/styles/_variables.scss';
 .modal-detail {
-  &__wrap {
+  &__overlay {
     position: fixed;
     left: 0;
     top: 0;
     width: 100vw;
     height: 100vh;
     background: rgba($black, 0.3);
-    z-index: 3;
+    z-index: 10;
   }
 
   &__content {
@@ -120,6 +121,7 @@ export default {
     height: 550px;
     background: $white;
     overflow-y: auto;
+    z-index: 11;
 
     @media (max-width: 600px) {
       width: 90%;
